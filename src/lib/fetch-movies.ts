@@ -1,6 +1,6 @@
 import { instance } from "@/lib/axios-instance";
 
-const getMoviesByYear = async (year: string) => {
+const getMoviesByYear = async (year: number) => {
   const { data } = await instance.get("", {
     params: {
       sort_by: "popularity.desc",

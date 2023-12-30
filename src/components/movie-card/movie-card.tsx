@@ -12,7 +12,7 @@ const Card = (props: CardProps) => {
   return (
     <div className={styles.card}>
       <Image
-        src={`https://image.tmdb.org/t/p/original${poster_path}`}
+        src={`https://image.tmdb.org/t/p/w300${poster_path}`}
         alt={original_title}
         width={200}
         height={300}
