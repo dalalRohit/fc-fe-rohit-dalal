@@ -5,14 +5,13 @@ import getQueryClient from "@/lib/query-client";
 import getMoviesByYear from "@/lib/fetch-movies";
 
 export default async function Home() {
-  let deafaultYear = 2012;
   const queryClient = getQueryClient();
 
   //pre-fetch movies for 2012 on server
   await queryClient.fetchInfiniteQuery({
     queryKey: ["movies"],
-    queryFn: () => getMoviesByYear(deafaultYear),
-    initialPageParam: deafaultYear,
+    queryFn: () => getMoviesByYear(2012),
+    initialPageParam: 2012,
   });
 
   return (

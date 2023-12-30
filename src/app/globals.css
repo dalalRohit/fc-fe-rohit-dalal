@@ -62,7 +62,7 @@ main {
 }
 
 @media (min-width: 799px) {
-  .main {
+  main {
     width: 98%;
   }
 }

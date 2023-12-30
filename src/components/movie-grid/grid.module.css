@@ -1,7 +1,7 @@
 .grid {
   position: relative;
   width: 100%;
-  margin: 0 auto;
+  margin: 1rem auto 0 auto;
   max-width: 100%;
 }
 
@@ -24,4 +24,5 @@
   position: relative;
   width: 100%;
   margin: 0.75rem auto;
+  padding: 0.25rem;
 }
