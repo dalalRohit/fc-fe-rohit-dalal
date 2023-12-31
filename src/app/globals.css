@@ -57,12 +57,39 @@ main {
   justify-content: space-between;
   align-items: center;
   min-height: 100vh;
-  width: 96%;
+  width: 100%;
   margin: 0 auto;
 }
 
+.grid-wrapper {
+  position: relative;
+  width: 96%;
+  margin: 2rem auto 0 auto;
+  padding-top: 100px;
+}
+
 @media (min-width: 799px) {
-  main {
+  .grid-wrapper {
     width: 98%;
   }
+}
+
+/* chip */
+.chip {
+  border: 1px solid #484848;
+  padding: 0.5rem;
+  display: inline-block;
+  margin-right: 0.75rem;
+  border-radius: 10px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.15s ease-in;
+  background-color: #242424;
+}
+
+.selected {
+  background-color: #e50914;
+}
+.chip:hover {
+  background-color: #e50914;
 }

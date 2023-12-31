@@ -12,4 +12,11 @@ const getMoviesByYear = async (year: number) => {
   return data;
 };
 
-export default getMoviesByYear;
+const getMovieGenres = async () => {
+  const { data } = await instance({
+    url: `https://api.themoviedb.org/3/genre/movie/list?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en`,
+  });
+  return data;
+};
+
+export { getMovieGenres, getMoviesByYear };

@@ -2,7 +2,8 @@ import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
 
 import MovieGrid from "@/components/movie-grid/movie-grid";
 import getQueryClient from "@/lib/query-client";
-import getMoviesByYear from "@/lib/fetch-movies";
+import { getMovieGenres, getMoviesByYear } from "@/lib/fetchers";
+import Header from "@/components/header/header";
 
 export default async function Home() {
   const queryClient = getQueryClient();
@@ -14,9 +15,18 @@ export default async function Home() {
     initialPageParam: 2012,
   });
 
+  //fetch all genres
+  await queryClient.fetchQuery({
+    queryKey: ["genres"],
+    queryFn: getMovieGenres,
+  });
+
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <MovieGrid />
+      <Header />
+      <div className="grid-wrapper">
+        <MovieGrid />
+      </div>
     </HydrationBoundary>
   );
 }

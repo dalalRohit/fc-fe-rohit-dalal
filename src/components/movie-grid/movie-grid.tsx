@@ -6,7 +6,7 @@ import { useInView } from "react-intersection-observer";
 
 import styles from "./grid.module.css";
 import Card from "@/components/movie-card/movie-card";
-import getMoviesByYear from "@/lib/fetch-movies";
+import { getMoviesByYear } from "@/lib/fetchers";
 
 const MovieGrid = () => {
   const { ref, inView, entry } = useInView({
