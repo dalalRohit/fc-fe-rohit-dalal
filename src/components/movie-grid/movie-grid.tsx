@@ -1,14 +1,17 @@
 "use client";
 
-import { useEffect, Fragment } from "react";
+import { useEffect } from "react";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useInView } from "react-intersection-observer";
+import { useSearchParams } from "next/navigation";
 
 import styles from "./grid.module.css";
 import Card from "@/components/movie-card/movie-card";
 import { getMoviesByYear } from "@/lib/fetchers";
 
 const MovieGrid = () => {
+  const searchParams = useSearchParams();
+  const selectedGenre = searchParams.get("genre");
   const { ref, inView, entry } = useInView({
     threshold: 0,
   });
@@ -59,15 +62,25 @@ const MovieGrid = () => {
           <div className={styles.grid} key={releaseYear}>
             <h1 className={styles.title}>{releaseYear}</h1>
             <div className={styles.cards}>
-              {page?.results?.map((movie: any, key: number) => (
-                <Card key={`movie-${releaseYear}-${key}`} {...movie} />
-              ))}
+              {page?.results?.map((movie: any, key: number) => {
+                if (
+                  selectedGenre &&
+                  !movie?.genre_ids?.includes(Number(selectedGenre))
+                )
+                  return null;
+                else
+                  return (
+                    <Card key={`movie-${releaseYear}-${key}`} {...movie} />
+                  );
+              })}
             </div>
           </div>
         );
       })}
 
-      <button ref={ref}>{inView ? "Visible" : "Not visible"}</button>
+      <button style={{ visibility: "hidden" }} ref={ref}>
+        {inView ? "Visible" : "Not visible"}
+      </button>
     </>
   );
 };

@@ -2,10 +2,10 @@
 
 import { useQuery } from "@tanstack/react-query";
 import { useSearchParams } from "next/navigation";
+import Link from "next/link";
 
 import styles from "./header.module.css";
 import { getMovieGenres } from "@/lib/fetchers";
-import Link from "next/link";
 
 const Header = () => {
   const searchParams = useSearchParams();
@@ -24,13 +24,20 @@ const Header = () => {
         </div>
 
         <div className={styles.genres}>
+          <Link
+            href={"/"}
+            className={`chip ${selectedGenre === null ? "selected" : ""}`}
+          >
+            All
+          </Link>
           {data?.genres?.map((genre: any) => {
             return (
               <Link
-                href={`/?genre=${genre?.name}`}
+                href={`/?genre=${genre?.id}`}
+                scroll={false}
                 key={genre?.id}
                 className={`chip ${
-                  genre?.name === selectedGenre ? "selected" : ""
+                  genre?.id === Number(selectedGenre) ? "selected" : ""
                 }`}
               >
                 {genre?.name}
