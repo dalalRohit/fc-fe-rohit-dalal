@@ -8,6 +8,7 @@ import { useSearchParams } from "next/navigation";
 import styles from "./grid.module.css";
 import Card from "@/components/movie-card/movie-card";
 import { getMoviesByYear } from "@/lib/fetchers";
+import CategoryLoader from "@/components/loaders/category-loader";
 
 const MovieGrid = () => {
   const searchParams = useSearchParams();
@@ -19,7 +20,13 @@ const MovieGrid = () => {
     threshold: 0.25,
   });
 
-  const { data, fetchNextPage, fetchPreviousPage } = useInfiniteQuery({
+  const {
+    data,
+    fetchNextPage,
+    fetchPreviousPage,
+    isFetchingNextPage,
+    isFetchingPreviousPage,
+  } = useInfiniteQuery({
     queryKey: ["movies"],
     queryFn: ({ pageParam }) => {
       return getMoviesByYear(pageParam);
@@ -35,9 +42,12 @@ const MovieGrid = () => {
       const releaseYear = new Date(
         page?.results?.[0]?.release_date
       ).getFullYear();
-      return releaseYear < new Date().getFullYear()
-        ? releaseYear + 1
-        : undefined;
+      /*
+			NOTE: this should be 
+			releaseYear < new Date().getFullYear().
+			Hard-coding it to 2023 as no new movies for 2024 yet.
+			*/
+      return releaseYear < 2023 ? releaseYear + 1 : undefined;
     },
   });
 
@@ -59,7 +69,7 @@ const MovieGrid = () => {
         ).getFullYear();
 
         return (
-          <div className={styles.grid} key={releaseYear}>
+          <div id={`${releaseYear}`} className={styles.grid} key={releaseYear}>
             <h1 className={styles.title}>{releaseYear}</h1>
             <div className={styles.cards}>
               {page?.results?.map((movie: any, key: number) => {
@@ -77,6 +87,7 @@ const MovieGrid = () => {
           </div>
         );
       })}
+      {isFetchingNextPage ? <CategoryLoader /> : null}
 
       <button style={{ visibility: "hidden" }} ref={ref}>
         {inView ? "Visible" : "Not visible"}

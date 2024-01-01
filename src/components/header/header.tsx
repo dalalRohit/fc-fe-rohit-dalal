@@ -26,6 +26,7 @@ const Header = () => {
         <div className={styles.genres}>
           <Link
             href={"/"}
+            scroll={false}
             className={`chip ${selectedGenre === null ? "selected" : ""}`}
           >
             All

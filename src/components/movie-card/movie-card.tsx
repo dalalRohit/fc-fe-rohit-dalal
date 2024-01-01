@@ -20,6 +20,7 @@ const Card = (props: CardProps) => {
         style={{
           width: "100%",
           height: "auto",
+          backgroundColor: "#242424",
         }}
       />
       <div className={styles.meta}>

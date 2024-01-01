@@ -1,0 +1,26 @@
+.cat_loader {
+  position: relative;
+  max-width: 100%;
+  margin-top: 1rem;
+}
+
+.title {
+  width: 125px;
+  height: 25px;
+  margin: 0.75rem auto;
+  padding: 0.25rem;
+}
+
+.cards {
+  position: relative;
+  max-width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  height: auto;
+  gap: 1rem;
+}
+
+.card {
+  background-color: #242424;
+  height: 300px;
+}
