@@ -33,9 +33,15 @@
 }
 
 .genres {
-  margin: 1.75rem 0;
+  margin: 1.25rem 0;
   width: 100%;
   overflow-x: scroll;
   overflow-y: hidden;
   white-space: nowrap;
+}
+
+@media (min-width: 799px) {
+  .genres {
+    margin: 1.75rem 0;
+  }
 }

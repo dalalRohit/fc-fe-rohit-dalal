@@ -4,6 +4,7 @@ import MovieGrid from "@/components/movie-grid/movie-grid";
 import getQueryClient from "@/lib/query-client";
 import { getMovieGenres, getMoviesByYear } from "@/lib/fetchers";
 import Header from "@/components/header/header";
+import CategoryLoader from "@/components/loaders/category-loader";
 
 export default async function Home() {
   const queryClient = getQueryClient();
@@ -25,6 +26,7 @@ export default async function Home() {
     <HydrationBoundary state={dehydrate(queryClient)}>
       <Header />
       <div className="grid-wrapper">
+        {/* <CategoryLoader /> */}
         <MovieGrid />
       </div>
     </HydrationBoundary>

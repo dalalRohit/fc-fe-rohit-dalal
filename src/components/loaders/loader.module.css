@@ -15,12 +15,36 @@
   position: relative;
   max-width: 100%;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(125px, 1fr));
   height: auto;
   gap: 1rem;
 }
 
+@media (min-width: 399px) {
+  .cards {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  }
+}
+
+@media (min-width: 799px) {
+  .cards {
+    grid-template-columns: repeat(auto-fill, minmax(175px, 1fr));
+  }
+}
+
+@media (min-width: 999px) {
+  .cards {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  }
+}
+
 .card {
   background-color: #242424;
-  height: 300px;
+  height: 200px;
+}
+
+@media (min-width: 799px) {
+  .card {
+    height: 300px;
+  }
 }

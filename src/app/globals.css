@@ -65,12 +65,13 @@ main {
   position: relative;
   width: 96%;
   margin: 2rem auto 0 auto;
-  padding-top: 150px;
+  padding-top: 120px;
 }
 
 @media (min-width: 799px) {
   .grid-wrapper {
     width: 98%;
+    padding-top: 150px;
   }
 }
 
@@ -79,7 +80,7 @@ main {
   border: 1px solid #484848;
   padding: 0.5rem;
   display: inline-block;
-  margin-right: 0.75rem;
+  margin-right: 0.5rem;
   border-radius: 10px;
   text-align: center;
   cursor: pointer;

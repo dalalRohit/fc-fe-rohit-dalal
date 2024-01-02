@@ -21,6 +21,10 @@
 }
 
 .meta p {
-  font-size: 1.25rem;
+  font-size: 1.125rem;
   margin-bottom: 0.25rem;
+}
+
+.meta span {
+  font-size: 1rem;
 }
