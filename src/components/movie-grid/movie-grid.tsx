@@ -17,7 +17,7 @@ const MovieGrid = () => {
     threshold: 0,
   });
   const { ref: upRef, inView: upInView } = useInView({
-    threshold: 0.25,
+    threshold: 0,
   });
 
   const {

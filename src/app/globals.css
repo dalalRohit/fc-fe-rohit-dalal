@@ -8,6 +8,8 @@
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
+  --header-height: 150px;
+  --logo-color: #e50914;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -38,6 +40,8 @@ body {
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
+  /* to not let grid-content overlap with fixed header */
+  padding-top: var(--header-height);
 }
 
 a {
@@ -65,13 +69,12 @@ main {
   position: relative;
   width: 96%;
   margin: 2rem auto 0 auto;
-  padding-top: 120px;
+  border: 1px solid pink;
 }
 
 @media (min-width: 799px) {
   .grid-wrapper {
     width: 98%;
-    padding-top: 150px;
   }
 }
 
@@ -89,8 +92,8 @@ main {
 }
 
 .selected {
-  background-color: #e50914;
+  background-color: var(--logo-color);
 }
 .chip:hover {
-  background-color: #e50914;
+  background-color: var(--logo-color);
 }
