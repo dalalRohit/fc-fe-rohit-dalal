@@ -1,13 +1,13 @@
 "use client";
 
 import { useQuery } from "@tanstack/react-query";
-import { useSearchParams } from "next/navigation";
-import Link from "next/link";
+import { useSearchParams, useRouter } from "next/navigation";
 
 import styles from "./header.module.css";
 import { getMovieGenres } from "@/lib/fetchers";
 
 const Header = () => {
+  const router = useRouter();
   const searchParams = useSearchParams();
   const selectedGenre = searchParams?.get("genre");
 
@@ -15,6 +15,21 @@ const Header = () => {
     queryKey: ["genres"],
     queryFn: getMovieGenres,
   });
+
+  const onGenreClick = (genreId?: number) => {
+    if (typeof window === "undefined") return;
+    if (!genreId) router.push("/");
+    /*
+		https://github.com/vercel/next.js/pull/58335
+    Adds experimental shallow routing setup 
+		*/ else {
+      const data = {
+        genre: genreId,
+      };
+      const url = `/?genre=${genreId}`;
+      window.history.pushState(data, "", url);
+    }
+  };
 
   return (
     <header className={styles.header}>
@@ -24,25 +39,23 @@ const Header = () => {
         </div>
 
         <div className={styles.genres}>
-          <Link
-            href={"/"}
-            scroll={false}
+          <span
+            onClick={() => onGenreClick()}
             className={`chip ${selectedGenre === null ? "selected" : ""}`}
           >
             All
-          </Link>
+          </span>
           {data?.genres?.map((genre: any) => {
             return (
-              <Link
-                href={`/?genre=${genre?.id}`}
-                scroll={false}
+              <span
+                onClick={() => onGenreClick(genre?.id)}
                 key={genre?.id}
                 className={`chip ${
                   genre?.id === Number(selectedGenre) ? "selected" : ""
                 }`}
               >
                 {genre?.name}
-              </Link>
+              </span>
             );
           })}
         </div>

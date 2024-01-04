@@ -49,6 +49,13 @@ const MovieGrid = () => {
 			*/
       return releaseYear < 2023 ? releaseYear + 1 : undefined;
     },
+
+    select: (raw) => {
+      const transformed = raw?.pages?.map((page, index) => {
+        return { year: raw?.pageParams?.[index], results: page?.results };
+      });
+      return transformed;
+    },
   });
 
   useEffect(() => {
@@ -63,11 +70,8 @@ const MovieGrid = () => {
     <>
       {/* <button ref={upRef}>{upInView ? "Visible" : "Not visible"}</button> */}
 
-      {data?.pages.map((page) => {
-        const releaseYear = new Date(
-          page?.results?.[0]?.release_date
-        ).getFullYear();
-
+      {data?.map((page) => {
+        const releaseYear = page?.year;
         return (
           <div id={`${releaseYear}`} className={styles.grid} key={releaseYear}>
             <h1 className={styles.title}>{releaseYear}</h1>
@@ -76,9 +80,9 @@ const MovieGrid = () => {
                 if (
                   selectedGenre &&
                   !movie?.genre_ids?.includes(Number(selectedGenre))
-                )
+                ) {
                   return null;
-                else
+                } else
                   return (
                     <Card key={`movie-${releaseYear}-${key}`} {...movie} />
                   );
@@ -90,7 +94,7 @@ const MovieGrid = () => {
       {isFetchingNextPage ? <CategoryLoader /> : null}
 
       <button style={{ visibility: "hidden" }} ref={ref}>
-        {inView ? "Visible" : "Not visible"}
+        Fetch more
       </button>
     </>
   );

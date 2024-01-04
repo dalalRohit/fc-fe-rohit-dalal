@@ -69,7 +69,6 @@ main {
   position: relative;
   width: 96%;
   margin: 2rem auto 0 auto;
-  border: 1px solid pink;
 }
 
 @media (min-width: 799px) {
