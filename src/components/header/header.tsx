@@ -16,17 +16,18 @@ const Header = () => {
     queryFn: getMovieGenres,
   });
 
-  const onGenreClick = (genreId?: number) => {
+  const onGenreClick = (genreId?: number, genreName?: string) => {
     if (typeof window === "undefined") return;
-    if (!genreId) router.push("/");
+    if (!genreId || !genreName) router.push("/");
     /*
 		https://github.com/vercel/next.js/pull/58335
     Adds experimental shallow routing setup 
 		*/ else {
       const data = {
         genre: genreId,
+        name: genreName,
       };
-      const url = `/?genre=${genreId}`;
+      const url = `/?genre=${genreId}&name=${genreName}`;
       window.history.replaceState(data, "", url);
     }
   };
@@ -48,7 +49,7 @@ const Header = () => {
           {data?.genres?.map((genre: any) => {
             return (
               <span
-                onClick={() => onGenreClick(genre?.id)}
+                onClick={() => onGenreClick(genre?.id, genre?.name)}
                 key={genre?.id}
                 className={`chip ${
                   genre?.id === Number(selectedGenre) ? "selected" : ""

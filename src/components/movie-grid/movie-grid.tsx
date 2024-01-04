@@ -13,20 +13,12 @@ import CategoryLoader from "@/components/loaders/category-loader";
 const MovieGrid = () => {
   const searchParams = useSearchParams();
   const selectedGenre = searchParams.get("genre");
-  const { ref, inView, entry } = useInView({
-    threshold: 0,
-  });
-  const { ref: upRef, inView: upInView } = useInView({
+  const selectedGenreName = searchParams.get("name");
+  const { ref, inView } = useInView({
     threshold: 0,
   });
 
-  const {
-    data,
-    fetchNextPage,
-    fetchPreviousPage,
-    isFetchingNextPage,
-    isFetchingPreviousPage,
-  } = useInfiniteQuery({
+  const { data, fetchNextPage, isFetchingNextPage } = useInfiniteQuery({
     queryKey: ["movies"],
     queryFn: ({ pageParam }) => {
       return getMoviesByYear(pageParam);
@@ -62,30 +54,38 @@ const MovieGrid = () => {
     if (inView) fetchNextPage();
   }, [inView, fetchNextPage]);
 
-  useEffect(() => {
-    if (upInView) fetchPreviousPage();
-  }, [upInView, fetchPreviousPage]);
-
   return (
     <>
-      {/* <button ref={upRef}>{upInView ? "Visible" : "Not visible"}</button> */}
-
       {data?.map((page) => {
         const releaseYear = page?.year;
+
+        const filteredResults = page?.results?.filter((movie: any) => {
+          if (movie?.genre_ids?.includes(Number(selectedGenre))) return movie;
+        });
+
+        const movies = selectedGenre ? filteredResults : page?.results;
+
+        if (selectedGenre && movies?.length === 0) {
+          return (
+            <div
+              id={`${releaseYear}`}
+              className={styles.grid}
+              key={releaseYear}
+            >
+              <h1 className={styles.title}>{releaseYear}</h1>
+              <h1 className={styles.not_found_title}>
+                No Movies found for {selectedGenreName} & {releaseYear}
+              </h1>
+            </div>
+          );
+        }
+
         return (
           <div id={`${releaseYear}`} className={styles.grid} key={releaseYear}>
             <h1 className={styles.title}>{releaseYear}</h1>
             <div className={styles.cards}>
-              {page?.results?.map((movie: any, key: number) => {
-                if (
-                  selectedGenre &&
-                  !movie?.genre_ids?.includes(Number(selectedGenre))
-                ) {
-                  return null;
-                } else
-                  return (
-                    <Card key={`movie-${releaseYear}-${key}`} {...movie} />
-                  );
+              {movies?.map((movie: any, key: number) => {
+                return <Card key={`movie-${releaseYear}-${key}`} {...movie} />;
               })}
             </div>
           </div>

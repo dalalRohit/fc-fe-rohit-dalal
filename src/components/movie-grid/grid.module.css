@@ -39,3 +39,11 @@
   margin: 0.75rem auto;
   padding: 0.25rem;
 }
+
+.not_found_title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 450px;
+  text-align: center;
+}
