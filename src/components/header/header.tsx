@@ -27,7 +27,7 @@ const Header = () => {
         genre: genreId,
       };
       const url = `/?genre=${genreId}`;
-      window.history.pushState(data, "", url);
+      window.history.replaceState(data, "", url);
     }
   };
 
