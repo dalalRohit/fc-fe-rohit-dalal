@@ -44,6 +44,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 450px;
+  height: 250px;
   text-align: center;
+}
+
+@media (min-width: 799px) {
+  .not_found_title {
+    height: 400px;
+  }
 }
